@@ -1,0 +1,123 @@
+<html>
+<head>
+	<title>Lesson3 文本處理</title>
+	<LINK href="punc.css" rel="stylesheet" type="text/css">
+	<script src="data.js"></script>
+	<button  onclick="comparepunc()"  style="font-size:200%">改考卷</button><span id=report style="font-size:150%"></span>
+<script>
+
+var user=[];
+var teacherpunc=[];
+var chcount=0;
+
+var onchclick=function(e){
+	var ch=e.target;
+	console.log(ch.id);
+
+	if(ch.className=="punc_comma"){
+	  ch.className="punc_none";
+	}else {
+	  ch.className="punc_comma";
+	  var pos=parseInt(ch.id.substr(2));
+	  console.log(pos);
+	  user[pos]="，";
+	  console.log(user);
+	}
+}
+function report(misscount,diffcount)
+{
+	finmis=(misscount+diffcount)/112*100;
+	fincor=corr/19*100;
+    document.getElementById('report').innerHTML ='總標數'+d+'/漏標'+misscount+'／誤標'+diffcount +'／正確'+corr+'／正確率'+fincor.toFixed(2)+'％' ;
+}
+
+var diffcount=0;
+var misscount=-1;
+var corr=0;
+var finmis=0;
+var fincor=0;
+var comparepunc=function() {
+	for(i=0;i<=chcount;i++){
+		var T=teacherpunc[i],S=user[i];
+		if (T && !S) {
+			misscount++;
+		   }
+           else if (S && !T) {
+			diffcount++;
+		   }
+		   else if (S && T) {
+			corr++;
+		   }	   
+        }
+		
+		
+		console.log('user',user);
+		console.log('teacherpunc',teacherpunc);
+		console.log('diffcount',diffcount);
+		console.log('misscount',misscount);
+		console.log('corr',corr);
+		console.log('mis',finmis+'%');
+		console.log('fincor',fincor+'%');
+		report(misscount,diffcount,corr);
+	
+	}
+
+
+
+var removepunc=function(textinput) {
+	var result="";
+	var puncs="。，!、；";
+	for(var i in textinput){
+		var code=textinput.charCodeAt(i);
+		if(puncs.indexOf(textinput.charAt(i))==-1){
+			result+=textinput.charAt(i);
+		}
+	}
+	return  result;
+}
+var d=0;
+var getpuncpos=function(textinput){
+	var puncpos=[];
+	
+	var puncs="。，!、；";
+	for(var i in textinput){
+		
+		i=parseInt(i);
+		var code=textinput.charCodeAt(i);
+		if(puncs.indexOf(textinput.charAt(i))>-1){
+			d++;
+			puncpos[i-d]=textinput.charAt(i);
+			console.log(d);
+		}
+	}
+	d-=1;
+	console.log('teacher',puncpos);
+	return puncpos;
+}
+var init=function() {
+  createspan( removepunc(textsource()) );
+ 
+  teacherpunc=getpuncpos(textsource());
+}
+
+
+var createspan=function(data){
+	for(var i in data){
+	 	var ch=document.createElement("span");
+		ch.innerHTML=data[i]+' ';
+		ch.onclick=onchclick;
+		ch.id="ch"+chcount;
+		ch.className="punc_none";
+		chcount++;
+		text1.appendChild(ch);
+	//document.getElementById("tex1").innerHTML=data;
+	}
+	}
+</script>
+</head>
+
+<body onload="init()">
+<div id="text1"></div>
+
+</body>
+</html>
