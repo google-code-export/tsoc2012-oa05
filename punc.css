@@ -1,0 +1,45 @@
+.punc_none {
+   cursor:pointer;
+   font-size:36pt;
+   padding:1pt;
+   line-height:160%
+}
+.punc_comma {
+      background-image: url(comma.png);
+      background-repeat: no-repeat;
+      background-position:90% 95% ;
+      cursor:no-drop;
+      padding:1pt;
+      font-size:36pt;
+      line-height:160%
+}
+.punc_fullstop {
+      background-image: url(fullstop.png);
+      background-repeat: no-repeat;
+      background-position:90% 90% ;
+      cursor:no-drop;
+      padding:1pt;
+      font-size:36pt;
+      line-height:160%
+}
+.punc_break {
+      background-image: url(break.png);
+      background-repeat: no-repeat;
+      background-position:90% 90% ;
+      cursor:no-drop;
+      padding:1pt;
+      font-size:36pt;
+      line-height:160%
+}
+.punc_semicolon {
+      background-image: url(semicolon.png);
+      background-repeat: no-repeat;
+      background-position:90% 90% ;
+      cursor:no-drop;
+      padding:1pt;
+      font-size:36pt;
+      line-height:160%
+}
+* {
+    -moz-user-select:none;
+}

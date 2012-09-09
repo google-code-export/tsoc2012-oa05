@@ -1,0 +1,61 @@
+<html >
+<head>
+</head>
+<script src="http://connect.facebook.net/zh_TW/all.js"></script>
+<script>
+	var ihandle=null;   //handler for timer
+		window.fbAsyncInit = function() { // will be called when all.js is loaded
+			//change appID to 216566131778225  for localhost
+			FB.init({appId:'176539609149109', status:true, cookie:true, xfbml:true, oauth:true});
+			ihandle=setInterval( "FB.getLoginStatus(loginstatus);" , 1000); 
+		};
+
+    var fbinfo=null;
+    var loginstatus = function(response) { //will be called every 1 second until login successfully
+			if (!response.authResponse) return;
+			clearInterval(ihandle);              // stop the timer
+			callname();
+		};
+		
+		
+		var callname=function(){
+			FB.api( "/me", function(response) {
+		       document.getElementById("username").innerHTML="Welcome "+response.name+"!!";
+			         fbinfo=response;
+					 window.fb=response; //set a global variable for easy debug on console
+					 //document.getElementById("fbbotton").style.display="none";
+					 document.getElementById("btnenter").style.display="block";
+					 if(response.id==100000621835532){
+						document.getElementById("teaenter").style.display="block";
+					 }
+					 
+		   });
+		   
+		}
+		
+		var callfb = function() {
+			//FB.api(  
+			if (fbinfo && fbinfo.name) {
+				window.location.href='1.html';
+			}	
+					 
+		  
+		 }
+	   var teaenter=function(){
+			if (fbinfo &&fbinfo.name) {
+				window.location.href='test.html';
+			}	
+	   }
+</script>
+<body >
+<div id="fb-root"> </div>
+<div id="username" style="position:absolute;left:40px;top:270px;font-size:150%" ></div>
+<div id="fbbotton" class="fb-login-button"  style="position:absolute;left:40px;top:230px" size="large" scope="user_status,email" autologoutlink="true" ></div>
+<button id="btnenter" onclick="callfb()"  style="position:absolute;left:40px;top:310px;display:none;font-size:120%">進入SYSTEM</button>
+<button id="teaenter" onclick="teaenter()"  style="position:absolute;left:40px;top:350px;display:none;font-size:120%">老師頁面</button>
+<div id="jsonres"></div>
+
+<a ><img src="700.png"  align="middle" width="1248" height="986" ></a>
+
+</body>
+</html>
